@@ -6,7 +6,12 @@ There are several ways to keep secrets out your repo. What works best for you ma
 
 ## ☠️ warning ☠️
 
-I would still only publish this repo privately, where my purpose for keeping secrets out of it is for added security, or because I will be sharing it with colleagues. If the secrets should somehow end up published, you don't want that to be public!
+I would still prefer to only publish this repo privately, where my purpose for keeping secrets out of it is for added security, or because I will be sharing it with colleagues. If the secrets should somehow end up published, you don't want that to be public!
+
+### how things can go quite wrong:
+
+- You forget to gitignore the secrets file. This is pretty bad. You do all this to remove secrets from all your profject files, but commit the file that has all the secrets. Don't do this.
+- You forget to apply the filter to a project file that has secrets. It might be best to filter all files until a reason comes up to get more specific. `* filter=secrets`
 
 ## walkthrough
 
@@ -18,7 +23,7 @@ I would still only publish this repo privately, where my purpose for keeping sec
 - ignore the `secrets` file by adding it to `.gitignore`.
 - wherever you need secrets in your project files, write `{KEY}`, replacing `KEY` with the actual key name of that secret, or write the secret itself
 - assign the git filter, `secrets`, to files using the `.gitattributes` file
-  * `my-config.json filter=secrets`
+  * `* filter=secrets`
 - execute the setup script
   * `$ ./scripts/git/setup`
   * this adds the `secrets` filter to the git project's config and runs the filter on your files for the first time
@@ -26,6 +31,7 @@ I would still only publish this repo privately, where my purpose for keeping sec
 
 ## see if it works
 
+- stage files that have secrets (`git add`) and then `git show :secrety-file` to check the contents.
 - clone your project locally
   * `git clone your-project test-project`
 - ensure that any files that had secrets have placeholders instead
